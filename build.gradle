@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+}
+
+group 'com.haya'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/google' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin' }
+    maven { url 'https://www.jitpack.io' }
+    maven { url "http://lib.gcssloop.com/repository/gcssloop-central/" }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.google.code.gson:gson:2.8.5'
+    compile 'mysql:mysql-connector-java:8.0.12'
+    
+}
+
+jar {
+    manifest {
+        attributes(
+                "Manifest-Version": 1.0,
+                "Main-Class": "Server")
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
